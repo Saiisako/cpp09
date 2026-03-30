@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:34:29 by sacha             #+#    #+#             */
-/*   Updated: 2026/03/30 11:21:38 by skock            ###   ########.fr       */
+/*   Updated: 2026/03/30 13:31:13 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 #include <sstream>
 #include <map>
 #include <stdexcept>
+#include <cstdlib>
 
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, double> exchangeRatesCsv;
+		std::multimap<std::string, double> exchangeRatesCsv;
 		std::multimap<std::string, double> exchangeRatesInput;
 
 	public:
