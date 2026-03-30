@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sacha <sacha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:34:29 by sacha             #+#    #+#             */
-/*   Updated: 2026/03/26 12:31:02 by sacha            ###   ########.fr       */
+/*   Updated: 2026/03/30 11:21:38 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,17 @@
 
 class BitcoinExchange
 {
-    private:
-        std::map<std::string, double> exchangeRates;
-    public:
-        BitcoinExchange();
-        ~BitcoinExchange();
-        void loadExchangeRates(const std::string& filename);
+	private:
+		std::map<std::string, double> exchangeRatesCsv;
+		std::multimap<std::string, double> exchangeRatesInput;
+
+	public:
+		BitcoinExchange();
+		~BitcoinExchange();
+
+		void loadExchangeRatesCsv(const std::string& filename);
+		void loadInputFile(const std::string& filename);
+		void printExchangeRatesCsv() const;
+		void printExchangeRatesInput() const;
+		void printConvertedOutput();
 };
