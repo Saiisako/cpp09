@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 13:28:24 by sacha             #+#    #+#             */
-/*   Updated: 2026/04/03 12:32:53 by skock            ###   ########.fr       */
+/*   Created: 2026/04/03 09:21:50 by skock             #+#    #+#             */
+/*   Updated: 2026/04/03 10:45:47 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
+#pragma once
 
-int main(int ac, char **av)
+#include <stack>
+#include <string>
+#include <stdexcept>
+#include <iostream>
+#include <sstream>
+
+class RPN
 {
-	if (ac != 2)
-	{
-		std::cerr << "Usage: ./RPN \"expression\"" << std::endl;
-		return 1;
-	}
-	try {
-		RPN rpn;
-		rpn.calculate(av[1]);
-	}
-	catch (const std::exception &e)
-	{
-		std::cerr << "Error: " << e.what() << std::endl;
-		return 1;
-	}
-	return 0;
-}
+	private:
+		std::stack<int> stack;
+	public:
+		RPN();
+		~RPN();
+		RPN(const RPN &other);
+		RPN &operator=(const RPN &other);
+		void calculate(const std::string &expression);
+};

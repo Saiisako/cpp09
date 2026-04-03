@@ -5,7 +5,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g -fsanitize=address,leak
 
 RM = rm -rf
 
-SRCS =	main.cpp RPN.cpp\
+SRCS =	main.cpp\
 
 OBJS = $(SRCS:.cpp=.o)
 

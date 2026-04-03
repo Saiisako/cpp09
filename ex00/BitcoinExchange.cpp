@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:34:27 by sacha             #+#    #+#             */
-/*   Updated: 2026/03/30 14:05:51 by skock            ###   ########.fr       */
+/*   Updated: 2026/04/03 12:35:05 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ BitcoinExchange::BitcoinExchange() {}
 
 // Destructeur
 BitcoinExchange::~BitcoinExchange() {}
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
+{
+	this->exchangeRatesCsv = other.exchangeRatesCsv;
+	this->exchangeRatesInput = other.exchangeRatesInput;
+}
+
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
+{
+	if (this != &other)
+	{
+		this->exchangeRatesCsv = other.exchangeRatesCsv;
+		this->exchangeRatesInput = other.exchangeRatesInput;
+	}
+	return (*this);
+}
 
 // Chargement du CSV
 void BitcoinExchange::loadExchangeRatesCsv(const std::string &filename)

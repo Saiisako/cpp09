@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:28:24 by sacha             #+#    #+#             */
-/*   Updated: 2026/04/03 12:32:53 by skock            ###   ########.fr       */
+/*   Updated: 2026/04/03 10:45:51 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ int main(int ac, char **av)
 		std::cerr << "Usage: ./RPN \"expression\"" << std::endl;
 		return 1;
 	}
-	try {
-		RPN rpn;
-		rpn.calculate(av[1]);
-	}
-	catch (const std::exception &e)
-	{
-		std::cerr << "Error: " << e.what() << std::endl;
-		return 1;
-	}
+	RPN rpn;
+	rpn.calculate(av[1]);
 	return 0;
 }
