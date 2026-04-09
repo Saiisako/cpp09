@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 12:34:23 by skock             #+#    #+#             */
-/*   Updated: 2026/04/09 13:58:14 by skock            ###   ########.fr       */
+/*   Updated: 2026/04/09 14:34:23 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ class PmergeMe
 		void printDeq(const std::deque<Pair> &deq);
 		
 		void sortVec();
+		std::vector<Pair>& mergeSort(std::vector<Pair> &v);
 		// void sortDeq(std::deque<Pair> &d);
 };
