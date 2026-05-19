@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 12:34:23 by skock             #+#    #+#             */
-/*   Updated: 2026/04/09 14:34:23 by skock            ###   ########.fr       */
+/*   Updated: 2026/05/19 13:50:09 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,29 @@ struct Pair
 class PmergeMe
 {
 	private:
-		std::vector<Pair> vec;
-		std::deque<Pair> deq;
-
+		std::vector<Pair>	vec;
+		std::deque<Pair>	deq;
+		std::vector<int>	resultVec;
+		std::deque<int>		resultDeq;
 	public:
+		PmergeMe();
 		PmergeMe(char **av);
 		~PmergeMe();
 		PmergeMe(const PmergeMe &other);
 		PmergeMe &operator=(const PmergeMe &other);
+		//	Printing
+		void	printVec(const std::vector<Pair> &vec);
+		void	printDeq(const std::deque<Pair> &deq);
+		void	PrintTimeCodeVec();
+		void	PrintTimeCodeDeq();
+		//	Algorithm
+		void	sortVec();
+		void	sortDeq();
+		void	insertPendVec(std::vector<int> &big,
+							  std::vector<int> &small,
+							  std::vector<Pair> &sortedVec);
+		void	insertPendDeq(std::deque<int> &big,
+							  std::deque<int> &small,
+							  std::deque<Pair> &sortedDeq);
 
-		void printVec(const std::vector<Pair> &vec);
-		void printDeq(const std::deque<Pair> &deq);
-		
-		void sortVec();
-		std::vector<Pair>& mergeSort(std::vector<Pair> &v);
-		// void sortDeq(std::deque<Pair> &d);
 };

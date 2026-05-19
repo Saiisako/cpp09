@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 09:21:52 by skock             #+#    #+#             */
-/*   Updated: 2026/04/03 12:29:08 by skock            ###   ########.fr       */
+/*   Updated: 2026/05/19 13:55:39 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ RPN &RPN::operator=(const RPN &other)
 	return (*this);
 }
 
-void RPN::calculate(const std::string &expression)
+void RPN::calculate(const std::string &string)
 {
-	std::istringstream iss(expression);
+	std::istringstream iss(string);
 	std::string token;
 
 	while (iss >> token)
@@ -41,12 +41,16 @@ void RPN::calculate(const std::string &expression)
 			int b = stack.top(); stack.pop();
 			int a = stack.top(); stack.pop();
 
-			if (token == "+")      stack.push(a + b);
-			else if (token == "-") stack.push(a - b);
-			else if (token == "*") stack.push(a * b);
+			if (token == "+")
+				stack.push(a + b);
+			else if (token == "-")
+				stack.push(a - b);
+			else if (token == "*")
+				stack.push(a * b);
 			else
 			{
-				if (b == 0) throw std::runtime_error("Division by zero");
+				if (b == 0)
+					throw std::runtime_error("Division by zero imnpossible");
 				stack.push(a / b);
 			}
 		}

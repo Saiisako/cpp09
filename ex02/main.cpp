@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:28:24 by sacha             #+#    #+#             */
-/*   Updated: 2026/04/09 13:57:53 by skock            ###   ########.fr       */
+/*   Updated: 2026/05/19 09:31:23 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int ac, char **av)
 	}
 	PmergeMe pmerge(av);
 	
-	pmerge.sortVec();
-	// sortDeq();
+	pmerge.PrintTimeCodeVec();
+	pmerge.PrintTimeCodeDeq();
 	return 0;
 }
