@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 09:21:52 by skock             #+#    #+#             */
-/*   Updated: 2026/05/19 13:55:39 by skock            ###   ########.fr       */
+/*   Updated: 2026/06/01 10:44:24 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void RPN::calculate(const std::string &string)
 			if (stack.size() < 2)
 				throw std::runtime_error("Not enough operands for: " + token);
 
-			int b = stack.top(); stack.pop();
-			int a = stack.top(); stack.pop();
+			int b = stack.top();
+			stack.pop();
+			int a = stack.top();
+			stack.pop();
 
 			if (token == "+")
 				stack.push(a + b);

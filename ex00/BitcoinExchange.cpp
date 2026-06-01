@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:34:27 by sacha             #+#    #+#             */
-/*   Updated: 2026/04/03 12:35:05 by skock            ###   ########.fr       */
+/*   Updated: 2026/05/27 21:29:42 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,38 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 	return (*this);
 }
 
+// Validation de la date (bissextile inclus)
+bool BitcoinExchange::isValidDate(const std::string &dateStr)
+{
+	for (size_t i = 0; i < 4; ++i)
+		if (!isdigit(static_cast<unsigned char>(dateStr[i])))
+			return false;
+	for (size_t i = 5; i < 7; ++i)
+		if (!isdigit(static_cast<unsigned char>(dateStr[i])))
+			return false;
+	for (size_t i = 8; i < 10; ++i)
+		if (!isdigit(static_cast<unsigned char>(dateStr[i])))
+			return false;
+
+	int year  = atoi(dateStr.substr(0, 4).c_str());
+	int month = atoi(dateStr.substr(5, 2).c_str());
+	int day   = atoi(dateStr.substr(8, 2).c_str());
+
+	if (month < 1 || month > 12 || day < 1)
+		return false;
+
+	int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+	bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+	if (isLeap)
+		daysInMonth[1] = 29;
+
+	if (day > daysInMonth[month - 1])
+		return false;
+
+	return true;
+}
+
 // Chargement du CSV
 void BitcoinExchange::loadExchangeRatesCsv(const std::string &filename)
 {
@@ -60,9 +92,9 @@ void BitcoinExchange::loadExchangeRatesCsv(const std::string &filename)
 
 		if (std::getline(ss, date, ',') && (ss >> rate))
 		{
-			while (!date.empty() && (date[0] == ' ' || date[0] == '\r'))
+			while (!date.empty() && (date[0] == ' ' || date[0] == '\n'))
 				date.erase(0, 1);
-			while (!date.empty() && (date[date.size() - 1] == ' ' || date[date.size() - 1] == '\r'))
+			while (!date.empty() && (date[date.size() - 1] == ' ' || date[date.size() - 1] == '\n'))
 				date.erase(date.size() - 1, 1);
 
 			exchangeRatesCsv.insert(std::make_pair(date, rate));
@@ -80,7 +112,7 @@ void BitcoinExchange::printExchangeRatesCsv() const
 	}
 }
 
-// Affichage de l’input
+// Affichage de l'input
 void BitcoinExchange::printExchangeRatesInput() const
 {
 	std::multimap<std::string, double>::const_iterator it;
@@ -90,7 +122,7 @@ void BitcoinExchange::printExchangeRatesInput() const
 	}
 }
 
-// Chargement de l’input
+// Chargement de l'input
 void BitcoinExchange::loadInputFile(const std::string &filename)
 {
 	std::ifstream file(filename.c_str());
@@ -118,8 +150,10 @@ void BitcoinExchange::loadInputFile(const std::string &filename)
 				continue;
 			}
 
-			while (!dateStr.empty() && (dateStr[dateStr.size()-1] == ' ' || dateStr[dateStr.size()-1] == '\r'))
+			while (!dateStr.empty() && (dateStr[dateStr.size()-1] == ' ' || dateStr[dateStr.size()-1] == '\n'))
 				dateStr.erase(dateStr.size()-1);
+			while (!dateStr.empty() && (dateStr[0] == ' ' || dateStr[0] == '\n'))
+				dateStr.erase(0, 1);
 
 			if (dateStr.size() != 10 || dateStr[4] != '-' || dateStr[7] != '-')
 			{
@@ -127,17 +161,7 @@ void BitcoinExchange::loadInputFile(const std::string &filename)
 				continue;
 			}
 
-			std::string yearStr = dateStr.substr(0, 4);
-			if (!isdigit(yearStr[0]) || !isdigit(yearStr[1]) || !isdigit(yearStr[2]) || !isdigit(yearStr[3]))
-			{
-				std::cout << "Error: bad input => " << dateStr << std::endl;
-				continue;
-			}
-
-			int month = atoi(dateStr.substr(5, 2).c_str());
-			int day   = atoi(dateStr.substr(8, 2).c_str());
-
-			if (month < 1 || month > 12 || day < 1 || day > 31)
+			if (!isValidDate(dateStr))
 			{
 				std::cout << "Error: bad input => " << dateStr << std::endl;
 				continue;
@@ -158,6 +182,7 @@ void BitcoinExchange::loadInputFile(const std::string &filename)
 		}
 	}
 }
+
 // Juste un print
 void BitcoinExchange::printConvertedOutput()
 {

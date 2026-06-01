@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 12:34:21 by skock             #+#    #+#             */
-/*   Updated: 2026/05/19 13:19:13 by skock            ###   ########.fr       */
+/*   Updated: 2026/06/01 11:49:20 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,9 @@ PmergeMe::PmergeMe(char **av)
 }
 
 
-// ─── Print ─────────────────────────────────────────────────────────────────
-
-void PmergeMe::printVec(const std::vector<Pair> &v)
-{
-	for (size_t i = 0; i < v.size(); ++i)
-		std::cout << v[i].big << " ";
-	std::cout << std::endl;
-}
-
-void PmergeMe::printDeq(const std::deque<Pair> &d)
-{
-	for (size_t i = 0; i < d.size(); ++i)
-		std::cout << d[i].big << " ";
-	std::cout << std::endl;
-}
-
-// ─── Jacobsthal ────────────────────────────────────────────────────────────
+////////////////////////
+//  JACOBSTHAL
+////////////////////////
 
 static std::vector<size_t> getJacobsthal(size_t n)
 {
@@ -92,7 +78,7 @@ static std::vector<size_t> getJacobsthal(size_t n)
 	return jac;
 }
 
-// ─── MergeSort vector ──────────────────────────────────────────────────────
+//  MergeSort vector 
 
 static std::vector<Pair>& mergeSort(std::vector<Pair> &v)
 {
@@ -120,7 +106,7 @@ static std::vector<Pair>& mergeSort(std::vector<Pair> &v)
 	return v;
 }
 
-// ─── MergeSort deque ───────────────────────────────────────────────────────
+//  MergeSort deque 
 
 static std::deque<Pair>& mergeSort(std::deque<Pair> &d)
 {
@@ -148,7 +134,7 @@ static std::deque<Pair>& mergeSort(std::deque<Pair> &d)
 	return d;
 }
 
-// ─── Insertion Jacobsthal vector ───────────────────────────────────────────
+//  Insertion Jacobsthal vector 
 
 void PmergeMe::insertPendVec(std::vector<int> &big, std::vector<int> &small, std::vector<Pair> &sortedVec)
 {
@@ -180,7 +166,7 @@ void PmergeMe::insertPendVec(std::vector<int> &big, std::vector<int> &small, std
 	}
 }
 
-// ─── Insertion Jacobsthal deque ────────────────────────────────────────────
+//  Insertion Jacobsthal deque 
 
 void PmergeMe::insertPendDeq(std::deque<int> &big, std::deque<int> &small, std::deque<Pair> &sortedDeq)
 {
@@ -212,7 +198,7 @@ void PmergeMe::insertPendDeq(std::deque<int> &big, std::deque<int> &small, std::
 	}
 }
 
-// ─── Sort vector ───────────────────────────────────────────────────────────
+//  Sort vector 
 
 void PmergeMe::sortVec()
 {
@@ -247,7 +233,7 @@ void PmergeMe::sortVec()
 	resultVec = big;
 }
 
-// ─── Sort deque ────────────────────────────────────────────────────────────
+//  Sort deque 
 
 void PmergeMe::sortDeq()
 {
@@ -282,7 +268,9 @@ void PmergeMe::sortDeq()
 	resultDeq = big;
 }
 
-// ─── Timers ────────────────────────────────────────────────────────────────
+////////////
+// PRINT
+////////////
 
 void PmergeMe::PrintTimeCodeVec()
 {
@@ -315,5 +303,19 @@ void PmergeMe::PrintTimeCodeDeq()
 			continue;
 		std::cout << resultDeq[i] << " ";
 	}
+	std::cout << std::endl;
+}
+
+void PmergeMe::printVec(const std::vector<Pair> &v)
+{
+	for (size_t i = 0; i < v.size(); ++i)
+		std::cout << v[i].big << " ";
+	std::cout << std::endl;
+}
+
+void PmergeMe::printDeq(const std::deque<Pair> &d)
+{
+	for (size_t i = 0; i < d.size(); ++i)
+		std::cout << d[i].big << " ";
 	std::cout << std::endl;
 }
