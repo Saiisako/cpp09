@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 12:34:21 by skock             #+#    #+#             */
-/*   Updated: 2026/06/01 11:49:20 by skock            ###   ########.fr       */
+/*   Updated: 2026/06/01 12:28:44 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ static std::vector<size_t> getJacobsthal(size_t n)
 	}
 	return jac;
 }
+///////////
+//  Vector 
+///////////
 
-//  MergeSort vector 
-
+//  MergeSort
 static std::vector<Pair>& mergeSort(std::vector<Pair> &v)
 {
 	if (v.size() <= 1)
@@ -106,35 +108,7 @@ static std::vector<Pair>& mergeSort(std::vector<Pair> &v)
 	return v;
 }
 
-//  MergeSort deque 
-
-static std::deque<Pair>& mergeSort(std::deque<Pair> &d)
-{
-	if (d.size() <= 1)
-		return d;
-
-	size_t mid = d.size() / 2;
-	std::deque<Pair> left(d.begin(), d.begin() + mid);
-	std::deque<Pair> right(d.begin() + mid, d.end());
-
-	mergeSort(left);
-	mergeSort(right);
-
-	size_t i = 0, j = 0, k = 0;
-	while (i < left.size() && j < right.size())
-	{
-		if (left[i].big <= right[j].big)
-			d[k++] = left[i++];
-		else
-			d[k++] = right[j++];
-	}
-	while (i < left.size()) d[k++] = left[i++];
-	while (j < right.size()) d[k++] = right[j++];
-
-	return d;
-}
-
-//  Insertion Jacobsthal vector 
+//  Insertion
 
 void PmergeMe::insertPendVec(std::vector<int> &big, std::vector<int> &small, std::vector<Pair> &sortedVec)
 {
@@ -166,39 +140,7 @@ void PmergeMe::insertPendVec(std::vector<int> &big, std::vector<int> &small, std
 	}
 }
 
-//  Insertion Jacobsthal deque 
-
-void PmergeMe::insertPendDeq(std::deque<int> &big, std::deque<int> &small, std::deque<Pair> &sortedDeq)
-{
-	if (small.empty()) return;
-
-	big.insert(big.begin(), small[0]);
-	if (small.size() == 1) return;
-
-	std::vector<size_t> jac = getJacobsthal(small.size());
-
-	size_t prev = 1;
-	for (size_t k = 1; k < jac.size(); ++k)
-	{
-		size_t curr = std::min(jac[k], small.size());
-
-		for (int i = (int)curr - 1; i >= (int)prev; --i)
-		{
-			std::deque<int>::iterator bound =
-				std::find(big.begin(), big.end(), sortedDeq[i].big);
-
-			std::deque<int>::iterator pos =
-				std::lower_bound(big.begin(), bound + 1, small[i]);
-
-			big.insert(pos, small[i]);
-		}
-
-		prev = curr;
-		if (prev >= small.size()) break;
-	}
-}
-
-//  Sort vector 
+//  Sort 
 
 void PmergeMe::sortVec()
 {
@@ -233,7 +175,71 @@ void PmergeMe::sortVec()
 	resultVec = big;
 }
 
-//  Sort deque 
+///////////
+//  DEQUE 
+///////////
+
+//  MergeSort 
+
+static std::deque<Pair>& mergeSort(std::deque<Pair> &d)
+{
+	if (d.size() <= 1)
+		return d;
+
+	size_t mid = d.size() / 2;
+	std::deque<Pair> left(d.begin(), d.begin() + mid);
+	std::deque<Pair> right(d.begin() + mid, d.end());
+
+	mergeSort(left);
+	mergeSort(right);
+
+	size_t i = 0, j = 0, k = 0;
+	while (i < left.size() && j < right.size())
+	{
+		if (left[i].big <= right[j].big)
+			d[k++] = left[i++];
+		else
+			d[k++] = right[j++];
+	}
+	while (i < left.size()) d[k++] = left[i++];
+	while (j < right.size()) d[k++] = right[j++];
+
+	return d;
+}
+
+//  Insertion 
+
+void PmergeMe::insertPendDeq(std::deque<int> &big, std::deque<int> &small, std::deque<Pair> &sortedDeq)
+{
+	if (small.empty()) return;
+
+	big.insert(big.begin(), small[0]);
+	if (small.size() == 1) return;
+
+	std::vector<size_t> jac = getJacobsthal(small.size());
+
+	size_t prev = 1;
+	for (size_t k = 1; k < jac.size(); ++k)
+	{
+		size_t curr = std::min(jac[k], small.size());
+
+		for (int i = (int)curr - 1; i >= (int)prev; --i)
+		{
+			std::deque<int>::iterator bound =
+				std::find(big.begin(), big.end(), sortedDeq[i].big);
+
+			std::deque<int>::iterator pos =
+				std::lower_bound(big.begin(), bound + 1, small[i]);
+
+			big.insert(pos, small[i]);
+		}
+
+		prev = curr;
+		if (prev >= small.size()) break;
+	}
+}
+
+//  Sort 
 
 void PmergeMe::sortDeq()
 {

@@ -6,7 +6,7 @@
 /*   By: skock <skock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:34:27 by sacha             #+#    #+#             */
-/*   Updated: 2026/05/27 21:29:42 by skock            ###   ########.fr       */
+/*   Updated: 2026/06/01 12:24:16 by skock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ bool BitcoinExchange::isValidDate(const std::string &dateStr)
 
 	int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-	bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-	if (isLeap)
+	bool Biyear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+	if (Biyear)
 		daysInMonth[1] = 29;
 
 	if (day > daysInMonth[month - 1])
